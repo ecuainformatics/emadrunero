@@ -8,7 +8,7 @@
 
   <meta name="description" content="Desarrollo de software a medida y consultoría informática profesional en Ecuador.">
 
-  <!-- Open Graph (Facebook / WhatsApp / LinkedIn) -->
+  <!-- Open Graph -->
   <meta property="og:title" content="Ecuainformatics | Software a Medida">
   <meta property="og:description" content="Soluciones tecnológicas profesionales para empresas y emprendimientos.">
   <meta property="og:type" content="website">
@@ -35,12 +35,8 @@
 
   <!-- HEADER -->
   <div style="text-align:center;">
+    <h1 style="margin:0;font-size:22px;">Ecuainformatics</h1>
 
-    <h1 style="margin:0;font-size:22px;">
-      Ecuainformatics
-    </h1>
-
-    <!-- FOTO PERFIL -->
     <img src="foto.jpeg"
          alt="Edwin Madruñero"
          style="
@@ -52,15 +48,12 @@
            margin:16px 0;
          ">
 
-    <h2 style="margin:0;font-size:18px;">
-      Edwin Madruñero
-    </h2>
+    <h2 style="margin:0;font-size:18px;">Edwin Madruñero</h2>
 
     <p style="margin:6px 0;color:#BFD9EA;font-size:14px;">
       Desarrollo de Software a Medida<br>
       Consultoría Informática
     </p>
-
   </div>
 
   <!-- DESCRIPCIÓN -->
@@ -134,21 +127,42 @@
     Sistemas de gestión, plataformas académicas y soluciones empresariales personalizadas.
   </p>
 
-  <!-- QR -->
+  <!-- QR + COMPARTIR -->
   <div style="margin-top:30px;text-align:center;">
     <h3 style="margin-bottom:8px;">📱 Compartir tarjeta</h3>
 
     <p style="font-size:13px;color:#D0E4F1;margin-bottom:12px;">
-      Escanea este código QR para acceder a esta tarjeta digital.
+      Toca el código QR para ampliarlo o comparte el enlace directamente.
     </p>
 
+    <!-- QR pequeño -->
     <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https://ecuainformatics.github.io/emadrunero/"
          alt="QR Ecuainformatics"
          style="
            background:#ffffff;
            padding:8px;
            border-radius:12px;
-         ">
+           cursor:pointer;
+         "
+         onclick="mostrarQR()">
+
+    <!-- BOTÓN COMPARTIR -->
+    <button onclick="compartirTarjeta()"
+            style="
+              display:block;
+              width:100%;
+              margin-top:14px;
+              padding:12px;
+              background:#1E40AF;
+              color:#ffffff;
+              border:none;
+              border-radius:14px;
+              font-size:14px;
+              font-weight:600;
+              cursor:pointer;
+            ">
+      🔗 Compartir enlace
+    </button>
   </div>
 
   <!-- FOOTER -->
@@ -163,6 +177,51 @@
   </div>
 
 </div>
+
+<!-- MODAL QR ZOOM -->
+<div id="qrModal" onclick="cerrarQR()" style="
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.85);
+  z-index:9999;
+  align-items:center;
+  justify-content:center;
+">
+  <img src="https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=https://ecuainformatics.github.io/emadrunero/"
+       alt="QR ampliado"
+       style="
+         background:#ffffff;
+         padding:16px;
+         border-radius:16px;
+         max-width:90%;
+       ">
+</div>
+
+<!-- SCRIPTS -->
+<script>
+  function mostrarQR() {
+    document.getElementById('qrModal').style.display = 'flex';
+  }
+
+  function cerrarQR() {
+    document.getElementById('qrModal').style.display = 'none';
+  }
+
+  function compartirTarjeta() {
+    const url = "https://ecuainformatics.github.io/emadrunero/";
+    if (navigator.share) {
+      navigator.share({
+        title: "Ecuainformatics | Software a Medida",
+        text: "Te comparto mi tarjeta digital profesional:",
+        url: url
+      });
+    } else {
+      navigator.clipboard.writeText(url);
+      alert("Enlace copiado al portapapeles");
+    }
+  }
+</script>
 
 </body>
 </html>

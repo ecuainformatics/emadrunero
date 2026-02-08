@@ -141,6 +141,49 @@
     <li>Consultoría informática</li>
   </ul>
 
+  <!-- PROYECTOS REALIZADOS -->
+<h3 style="margin-top:24px;">🧩 Proyectos Realizados</h3>
+
+<ul id="listaProyectosPersonal" style="
+  padding:0;
+  list-style:none;
+  font-size:14px;
+  color:#D0E4F1;
+">
+</ul>
+
+<!-- HOJA DE VIDA -->
+<!-- HOJA DE VIDA - OPCIÓN 2 -->
+<div style="
+  margin-top:26px;
+  padding:18px;
+  border-radius:18px;
+  background:linear-gradient(180deg,#0A2540,#071B2E);
+  text-align:center;
+">
+  <h3 style="margin-top:0;">📄 Hoja de Vida</h3>
+
+  <p style="font-size:13px;color:#D0E4F1;">
+    Experiencia, formación y proyectos profesionales
+  </p>
+
+  <button onclick="abrirCV_Opcion2()" style="
+    padding:12px 18px;
+    background:#1E88E5;
+    border:none;
+    border-radius:12px;
+    color:#fff;
+    font-weight:600;
+    cursor:pointer;
+  ">
+    Ver CV en PDF
+  </button>
+</div>
+
+
+
+
+
   <!-- QR + COMPARTIR -->
   <div style="margin-top:30px;text-align:center;">
     <h3>📱 Compartir tarjeta</h3>
@@ -233,6 +276,202 @@
     }
   }
 </script>
+
+
+<!-- MODAL PROYECTO PERSONAL -->
+<div id="modalProyectoPersonal" onclick="cerrarProyectoPersonal()" style="
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.85);
+  z-index:9999;
+  align-items:center;
+  justify-content:center;
+  padding:16px;
+">
+
+  <div onclick="event.stopPropagation()" style="
+    background:linear-gradient(180deg,#0A2540,#071B2E);
+    padding:22px;
+    border-radius:18px;
+    max-width:420px;
+    width:100%;
+  ">
+    <h3 id="ppTitulo"></h3>
+
+    <p style="font-size:13px;color:#9FD3F1;">
+      <strong>Cliente:</strong> <span id="ppCliente"></span>
+    </p>
+
+    <p id="ppDescripcion" style="
+      font-size:14px;
+      line-height:1.6;
+      color:#E3EEF6;
+    "></p>
+
+    <button onclick="cerrarProyectoPersonal()" style="
+      margin-top:14px;
+      width:100%;
+      padding:12px;
+      background:#1E88E5;
+      color:#fff;
+      border:none;
+      border-radius:12px;
+      font-weight:600;
+      cursor:pointer;
+    ">
+      Cerrar
+    </button>
+  </div>
+</div>
+
+<script>
+/* ==============================
+   PROYECTOS PERSONALES (AISLADO)
+============================== */
+
+const proyectosPersonales = [
+  {
+    titulo: "Sistema de Caja de Ahorros",
+    cliente: "Corporación Hoja Verde",
+    descripcion:
+      "Diseñé y desarrollé un sistema de caja de ahorros que permite un control claro y seguro de aportes, préstamos y reportes financieros, optimizando la gestión administrativa."
+  },
+  {
+    titulo: "Página Web Institucional",
+    cliente: "COCAPRODE",
+    descripcion:
+      "Desarrollé una página web institucional con diseño responsivo y enfoque informativo, fortaleciendo la presencia digital de la organización."
+  },
+  {
+    titulo: "Entorno Virtual de Aprendizaje - Moodle",
+    cliente: "COCAPRODE",
+    descripcion:
+      "Implementación de un aula virtual para dicta capacitaciones"
+  },
+   {
+    titulo: "Sistema Académico ",
+    cliente: "RELACIÓN DE DEPENDENDICA",
+    descripcion:
+      "Desarrollo e implementación del módulo de vinculación, idiomas, generación y carga firma digital de actas de calificaciones y administración y soporte del sistema académico"
+  }
+];
+
+const listaPersonal = document.getElementById("listaProyectosPersonal");
+
+if (listaPersonal) {
+  proyectosPersonales.forEach((p, index) => {
+    const li = document.createElement("li");
+
+    li.innerHTML = `
+      <div style="
+        padding:12px;
+        margin-bottom:10px;
+        border-radius:12px;
+        background:rgba(79,195,247,0.08);
+        cursor:pointer;
+        transition:transform .2s ease;
+      ">
+        <strong>${p.titulo}</strong><br>
+        <span style="font-size:12px;color:#9FD3F1;">
+          
+        </span>
+      </div>
+    `;
+
+    li.onmouseenter = () =>
+      li.firstElementChild.style.transform = "scale(1.02)";
+    li.onmouseleave = () =>
+      li.firstElementChild.style.transform = "scale(1)";
+
+    li.onclick = () => abrirProyectoPersonal(index);
+
+    listaPersonal.appendChild(li);
+  });
+}
+
+function abrirProyectoPersonal(index) {
+  const p = proyectosPersonales[index];
+  document.getElementById("ppTitulo").innerText = p.titulo;
+  document.getElementById("ppCliente").innerText = p.cliente;
+  document.getElementById("ppDescripcion").innerText = p.descripcion;
+  document.getElementById("modalProyectoPersonal").style.display = "flex";
+}
+
+function cerrarProyectoPersonal() {
+  document.getElementById("modalProyectoPersonal").style.display = "none";
+}
+</script>
+
+/* ==============================
+   HOJA DE VIDA
+============================== */
+
+<!-- MODAL CV PDF (OPCIÓN 2) -->
+<div id="cvModalOpcion2" onclick="cerrarCV_Opcion2()" style="
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.85);
+  z-index:9999;
+  align-items:center;
+  justify-content:center;
+  padding:16px;
+">
+
+  <div onclick="event.stopPropagation()" style="
+    background:linear-gradient(180deg,#0A2540,#071B2E);
+    border-radius:18px;
+    width:100%;
+    max-width:420px;
+    height:85vh;
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+  ">
+
+    <!-- HEADER MODAL -->
+    <div style="
+      padding:12px 16px;
+      border-bottom:1px solid rgba(79,195,247,0.3);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    ">
+      <strong>Hoja de Vida</strong>
+      <button onclick="cerrarCV_Opcion2()" style="
+        background:none;
+        border:none;
+        color:#fff;
+        font-size:18px;
+        cursor:pointer;
+      ">✕</button>
+    </div>
+
+    <!-- PDF -->
+    <iframe
+      src="emadrunero_cv.pdf"
+      style="
+        flex:1;
+        width:100%;
+        border:none;
+        background:#fff;
+      ">
+    </iframe>
+
+  </div>
+</div>
+<script>
+function abrirCV_Opcion2() {
+  document.getElementById("cvModalOpcion2").style.display = "flex";
+}
+
+function cerrarCV_Opcion2() {
+  document.getElementById("cvModalOpcion2").style.display = "none";
+}
+</script>
+
+
 
 </body>
 </html>
